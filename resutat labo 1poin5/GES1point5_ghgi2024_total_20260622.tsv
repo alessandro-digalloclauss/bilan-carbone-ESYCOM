@@ -1,0 +1,43 @@
+%entity.name	ESYCOM
+%year	2024
+%uuid	3d3cff66-478b-4b08-a7c2-7976311de905
+%nb.Chercheur·e·s	1
+%nb.Enseignants-Ch.	23
+%nb.ITA	10
+%nb.Doctorants/Post-Docs	29
+name	is.subtotal	emission.kg.co2e	uncertainty.kg.co2e
+Empreinte carbone des bâtiments	isSubtotal	20205	928
+Empreinte carbone des usages	isSubtotal	20205	928
+Chauffage	isSubtotal	13828	678
+Électricité	isSubtotal	6329	633
+Fluides frigorigènes	isSubtotal	0	0
+Eau	isSubtotal	47	5
+Empreinte carbone des constructions	isSubtotal	0	0
+Empreinte carbone du matériel informatique	isSubtotal	20536	8360
+PC fixe sans écran	isSubtotal	6800	6565
+PC portable	isSubtotal	2366	1407
+Tablette	isSubtotal	1050	504
+Écran	isSubtotal	10320	4956
+Empreinte carbone des achats	isSubtotal	126760	24682
+Vie du laboratoire (Alimentation, aménagement, loisirs, bâtiment)	isSubtotal	3802	477
+Transport / Hébergement	isSubtotal	6145	1132
+Services	isSubtotal	6044	329
+Consommables (Matières premières, produits chimiques/biologiques et organismes vivants)	isSubtotal	40716	18504
+Matériel et instruments de laboratoire	isSubtotal	64921	16149
+Informatique-audiovisuel	isSubtotal	2483	993
+Réparations et maintenance	isSubtotal	2648	1846
+Empreinte carbone des déplacements	isSubtotal	56014	14497
+Déplacements domicile/travail	isSubtotal	10906	3923
+Déplacements professionnels	isSubtotal	45109	13956
+Les véhicules	isSubtotal	0	0
+Les missions	isSubtotal	45109	13956
+Empreinte carbone de l'alimentation	isSubtotal	27438	7305
+Repas végétalien	isSubtotal	0	0
+Repas végétarien	isSubtotal	4320	2160
+Repas classique avec viande blanche	isSubtotal	10838	5419
+Repas classique avec viande rouge	isSubtotal	7116	3558
+Repas classique avec poisson n°1	isSubtotal	2105	1053
+Repas classique avec poisson n°2	isSubtotal	3058	1529
+Empreinte carbone des activités de recherche	isSubtotal	0	0
+Empreinte carbone des déchets	isSubtotal	0	0
+Empreinte carbone totale	isSubtotal	250953	30716

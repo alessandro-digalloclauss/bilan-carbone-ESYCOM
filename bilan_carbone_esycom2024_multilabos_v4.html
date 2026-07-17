@@ -1532,8 +1532,16 @@ async function parseCSVClient(file, forcedType=null){
     return Object.fromEntries(headers.map((h,i)=>[h,vals[i]||'']));
   });
 
+  // ─── Format GES-1point5 (prioritaire : en-têtes non ambigus) ───
+  let gesType=null;
+  if(headers.includes('Code NACRES')&&headers.includes('Montant')&&headers.includes('Amortissement')) gesType='ges_achats';
+  else if(headers.includes('Modèle')&&headers.includes('Type')&&headers.includes('Quantité')) gesType='ges_info';
+  else if(headers.includes('hash mission')||(headers.includes('Mode de déplacement')&&headers.includes('Covoiturage'))) gesType='ges_missions';
+  else if(headers.includes('Identifiant')&&headers.includes('Occupation')) gesType='ges_batiment';
+  else if(headers.includes('seqID')&&headers.some(h=>/Mode 1 J1/i.test(h))) gesType='ges_domicile';
+
   // Si une section est forcée, on l'utilise directement ; sinon détection par en-têtes
-  let type=forcedType;
+  let type=gesType||forcedType;
   if(!type){
     if(headers.includes('Catégorie DDRS')||headers.includes("Date d'engagement")) type='achats';
     else if(headers.includes('Catégorie IT')||headers.includes('Désignation produit')) type='informatique';
@@ -1552,6 +1560,112 @@ async function parseCSVClient(file, forcedType=null){
   if(forcedType) setModuleStatus(forcedType,'Traitement en cours...');
 
   const modules={};
+
+  // ═══════════ HANDLERS FORMAT GES-1point5 ═══════════
+  if(type==='ges_achats'){
+    // achats.csv : Code NACRES (sans point) ; Montant € → même calcul que le module Achats du site
+    const tot={};
+    rows.forEach(r=>{
+      const cat=mapNACRESClient(r['Code NACRES']||'')||'autre';
+      const mt=parseFloat((r['Montant']||'0').replace(',','.'))||0;
+      if(mt>0) tot[cat]=(tot[cat]||0)+mt;
+    });
+    modules.achats=Object.entries(tot).map(([c,m])=>({categorie:c,montant:Math.round(m*100)/100,facteur:EF_ACH_JS[c]||.35,co2:Math.round(m*(EF_ACH_JS[c]||.35)*10)/10}));
+  }
+  else if(type==='ges_info'){
+    // informatique.csv : Type + Quantité (fournie directement)
+    const mapT=t=>{const s=(t||'').toLowerCase();
+      if(/portable|laptop/.test(s))return'laptop';
+      if(/fixe|desktop|tour|station/.test(s))return'desktop';
+      if(/écran|ecran|screen|moniteur/.test(s))return'ecran';
+      if(/serveur|server/.test(s))return'serveur';
+      if(/tablet|smartphone|mobile|téléphone/.test(s))return'smartphone';
+      if(/imprimante|printer/.test(s))return'imprimante';
+      return'laptop';};
+    modules.informatique=rows.filter(r=>(r['Type']||'').trim()).map(r=>{
+      const it=mapT(r['Type']);
+      const qty=Math.max(1,parseInt(r['Quantité']||'1')||1);
+      const modele=(r['Modèle']||r['Fabricant']||'').slice(0,50);
+      return {type:it,modele,qty,amort:5,co2:Math.round(EF_IT_JS[it]*qty/5*10)/10};
+    });
+  }
+  else if(type==='ges_missions'){
+    // missions.csv : 1 ligne par mode → on regroupe par mission et on garde le mode dominant
+    const mapM=m=>{const s=(m||'').toLowerCase();
+      if(/avion|plane|vol/.test(s))return'avion_long';
+      if(/train|tgv|ferroviaire/.test(s))return'train';
+      if(/bus|autocar|ferry/.test(s))return'car';
+      if(/voiture|taxi|véhicule|vehicule/.test(s))return'voiture';
+      return'voiture';};
+    const prio={avion_long:4,voiture:3,train:2,car:1};
+    const byMission={};
+    rows.forEach(r=>{
+      const id=r['hash mission']||(r['Ville de destination']+'|'+r['Date de départ']);
+      (byMission[id]=byMission[id]||[]).push(r);
+    });
+    modules.deplacements=Object.values(byMission).map(g=>{
+      let best=g[0],bm=mapM(g[0]['Mode de déplacement']);
+      g.forEach(r=>{const m=mapM(r['Mode de déplacement']);if((prio[m]||0)>(prio[bm]||0)){best=r;bm=m;}});
+      const dest=(best['Ville de destination']||'').trim()||'Mission';
+      const arRaw=(best['Aller / Retour (OUI si identiques, NON si différents)']||best['Aller / Retour']||'').toString().toLowerCase();
+      const ar=(arRaw.includes('true')||arRaw.includes('oui'))?2:(bm==='avion_long'?2:1);
+      const {dist,modeAdj}=guessDist(dest,bm);
+      const ef=EF_TR_JS[modeAdj]||.218;
+      return {destination:dest,mode:modeAdj,dist,nb:1,ar,co2:Math.round(dist*ar*ef*10)/10};
+    });
+  }
+  else if(type==='ges_batiment'){
+    // batiments.csv : totaux bâtiment + Occupation (%) ; on prorate comme "Part labo"
+    const num=v=>{if(!v)return 0;const m=String(v).replace(/\s/g,'').match(/-?[\d]+(?:[.,]\d+)?/);return m?parseFloat(m[0].replace(',','.')):0;};
+    const hOcc=headers.find(h=>/occupation/i.test(h));
+    const hElec=headers.find(h=>/^electricit|^électricit/i.test(h));
+    const hRCU=headers.find(h=>/consommation.*chaleur/i.test(h));
+    const hGaz=headers.find(h=>/gaz naturel/i.test(h));
+    const hPlaq=headers.find(h=>/plaquettes/i.test(h));
+    const hBat=headers[0];
+    rows.forEach(r=>{
+      const bat=(r[hBat]||'').trim();if(!bat)return;
+      const part=hOcc?Math.min(1,num(r[hOcc])/100):1;
+      if(hElec){const kwh=num(r[hElec])*part;if(kwh>0){const co2=Math.round(kwh*EF.elec*10)/10;D.electricite.push({co2,c:[bat,kwh.toFixed(0),(part*100).toFixed(1)+'%',co2.toFixed(1)+' kg']});rt('electricite');}}
+      if(hRCU){const kwh=num(r[hRCU])*part;if(kwh>0){const co2=Math.round(kwh*EF.chauf.reseau*10)/10;D.chauffage.push({co2,c:[bat,'RCU/réseau chaleur',kwh.toFixed(0),co2.toFixed(1)+' kg']});rt('chauffage');}}
+      if(hGaz){const kwh=num(r[hGaz])*part;if(kwh>0){const co2=Math.round(kwh*EF.chauf.gaz*10)/10;D.chauffage.push({co2,c:[bat,'Gaz naturel',kwh.toFixed(0),co2.toFixed(1)+' kg']});rt('chauffage');}}
+      if(hPlaq){const kg=num(r[hPlaq])*part;if(kg>0){const kwh=kg*3.5;const co2=Math.round(kwh*EF.chauf.bois*10)/10;D.chauffage.push({co2,c:[bat,'Plaquettes forestières',kwh.toFixed(0),co2.toFixed(1)+' kg']});rt('chauffage');}}
+    });
+    if(forcedType) setModuleStatus(forcedType,`${file.name} — réparti dans Électricité + Chauffage`,'ok');
+    else msg.innerHTML=`<div class="up-msg up-ok"><strong>${file.name}</strong> — Bâtiment importé (Électricité + Chauffage)</div>`;
+    const g1=Object.values(D).flat().reduce((s,r)=>s+(r.co2||0),0),E1=parseInt(document.getElementById('etp-val')?.value)||ETP_2024;
+    if(g1>0){document.getElementById('kpi-total').textContent=fr(g1/1000,1);document.getElementById('kpi-pp').textContent=fr(g1/1000/E1,2);}
+    return;
+  }
+  else if(type==='ges_domicile'){
+    // domicile-travail.csv (enquête GES) : modes + distances par jour → annualisation jours/sem × 44 sem × 2 (A/R)
+    const WEEKS=44;
+    const efFor=m=>{const s=(m||'').toLowerCase();
+      if(/vélo|velo|marche|trottinette|pied/.test(s))return{ef:0,lab:'Vélo/marche'};
+      if(/métro|metro|rer|transilien|tram|télécabine|telecabine/.test(s))return{ef:EF.dom.rer_metro,lab:'RER/métro/tram'};
+      if(/train/.test(s))return{ef:EF.dom.transilien,lab:'Train'};
+      if(/bus|autocar|car/.test(s))return{ef:EF.dom.bus,lab:'Bus'};
+      return{ef:EF.dom.voiture_seul,lab:'Voiture'};};
+    const agg={};
+    rows.forEach(r=>{
+      const jours=parseFloat((r['Jours de travail']||'0').replace(',','.'))||0;if(!jours)return;
+      [['Mode 1 J1','Distance Mode 1 J1'],['Mode 2 J1','Distance Mode 2 J1'],['Mode 3 J1','Distance Mode 3 J1']].forEach(([mk,dk])=>{
+        const mode=(r[mk]||'').trim();if(!mode)return;
+        const dist=parseFloat((r[dk]||'0').replace(',','.'))||0;if(!dist)return;
+        const {ef,lab}=efFor(mode);
+        agg[lab]=(agg[lab]||0)+dist*2*jours*WEEKS*ef;
+      });
+    });
+    Object.entries(agg).forEach(([lab,co2])=>{const v=Math.round(co2*10)/10;D.domicile.push({co2:v,c:[lab,'—','annuel (enquête)','—',v.toFixed(1)+' kg']});});
+    rt('domicile');
+    if(forcedType) setModuleStatus(forcedType,`${file.name} — ${rows.length} répondants → ${Object.keys(agg).length} modes`,'ok');
+    else msg.innerHTML=`<div class="up-msg up-ok"><strong>${file.name}</strong> — domicile-travail importé (${rows.length} répondants)</div>`;
+    const g2=Object.values(D).flat().reduce((s,r)=>s+(r.co2||0),0),E2=parseInt(document.getElementById('etp-val')?.value)||ETP_2024;
+    if(g2>0){document.getElementById('kpi-total').textContent=fr(g2/1000,1);document.getElementById('kpi-pp').textContent=fr(g2/1000/E2,2);}
+    return;
+  }
+  // ═══════════ FIN HANDLERS GES ═══════════
+
   if(type==='achats'){
     const tot={};
     rows.forEach(r=>{

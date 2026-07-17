@@ -1,0 +1,12 @@
+type	model	amount	tags	emission.kg.co2e	uncertainty.kg.co2e
+desktop	default	15		5250	5760
+desktop	mac_mini	1		270	130
+desktop	precision_tower_3xxx	1		285	163
+desktop	precision_tower_7xxx	1		555	300
+desktop	precision_tower_5xxx	1		440	213
+laptop	default	6		1560	1385
+laptop	precision_3xxx	1		266	90
+pad	default	7		1050	504
+laptop	avg_laptop_13	1		250	186
+laptop	elitebook_8xx	1		290	145
+screen	default	24		10320	4956

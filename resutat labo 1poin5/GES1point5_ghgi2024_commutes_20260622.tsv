@@ -1,0 +1,43 @@
+seqid	deleted	commuting.days	position	message	tags	engine.std1	motorbikepooling.std1	carpooling.std1	walking.std1.km	bike.std1.km	ebike.std1.km	escooter.std1.km	motorbike.std1.km	car.std1.km	bus.std1.km	busintercity.std1.km	tram.std1.km	train.std1.km	expressrailway.std1.km	subway.std1.km	cablecar.std1.km	commuting.std2.days	engine.std2	motorbikepooling.std2	carpooling.std2	walking.std2.km	bike.std2.km	ebike.std2.km	escooter.std2.km	motorbike.std2.km	car.std2.km	bus.std2.km	busintercity.std2.km	tram.std2.km	train.std2.km	expressrailway.std2.km	subway.std2.km	cablecar.std2.km	walking.kg.co2e	bike.kg.co2e	ebike.kg.co2e	escooter.kg.co2e	motorbike.kg.co2e	car.kg.co2e	bus.kg.co2e	busintercity.kg.co2e	tram.kg.co2e	train.kg.co2e	expressrailway.kg.co2e	subway.kg.co2e	cablecar.kg.co2e	total.kg.co2e
+170667	false	5	cf.researcher-teacher				0	0	1	0	0	0	0	0	0	0	0	0	120	0	0	0		0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	231	0	0	231
+170668	false	5	cf.researcher-teacher			gasoline	0	1	0	0	0	0	0	12	0	0	0	0	0	0	0	3		0	0	0	0	0	0	0	0	0	0	0	0	50	0	0	0	0	0	0	0	220	0	0	0	0	58	0	0	278
+170669	false	5	cf.support				0	0	0	20	0	0	0	0	0	0	0	0	0	0	0	0		0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	21	0	0	0	0	0	0	0	0	0	0	0	21
+170670	false	5	cf.researcher-teacher	Questionnaire peu lisible à cause de l'écriture inclusive		gasoline	0	1	0	0	0	0	0	60	0	0	0	0	0	0	0	0		0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	2748	0	0	0	0	0	0	0	2748
+170672	false	4	cf.researcher-teacher				0	0	10	10	0	0	0	0	0	0	0	30	1	3	0	0		0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	8	0	0	0	0	0	0	0	89	2	2	0	101
+170673	false	4	cf.researcher-teacher				0	0	0	0	0	0	0	0	0	0	0	0	46	14	0	0		0	0	0	6	0	0	0	0	0	0	0	0	46	7	0	0	0	0	0	0	0	0	0	0	0	71	9	0	80
+170674	false	4	cf.researcher-teacher	Votre questionnaire ne prévoit pas lon cas ou je ne prends aucun repas a midi. Jai du donc repondre que mes 8 repas étaient vegetaliens		gasoline	0	1	0	0	0	0	0	20	0	0	0	0	0	0	0	0		0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	733	0	0	0	0	0	0	0	733
+170675	false	5	cf.support				0	0	0	8	0	0	0	0	0	0	0	0	0	0	0	0		0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	8	0	0	0	0	0	0	0	0	0	0	0	8
+170676	false	5	cf.student-postdoc	les repas au crous sont en cas de dépannage, étant donné que le crous n'est en général pas très bon et pas équilibré (nourriture souvent trop cuite, trop salée, non variée)			0	0	5	0	0	0	0	0	5	0	0	0	20	6	0	0		0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	132	0	0	0	39	5	0	176
+170678	false	5	cf.researcher-teacher				0	0	0	0	0	0	0	0	0	0	0	0	44	0	0	0		0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	85	0	0	85
+170680	false	5	cf.student-postdoc			diesel	0	1	0	0	0	0	0	5	0	0	0	0	0	0	0	0		0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	217	0	0	0	0	0	0	0	217
+170682	false	5	cf.researcher-teacher				0	0	4	0	0	0	0	0	0	0	0	0	13	0	0	0		0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	25	0	0	25
+170797	false	5	cf.researcher-teacher				0	0	0	0	0	0	0	0	0	0	0	0	30	0	0	0		0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	58	0	0	58
+170835	false	5	cf.researcher-teacher				0	0	3	0	0	0	0	0	0	0	0	0	28	0	0	0		0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	54	0	0	54
+170846	false	5	cf.researcher-teacher				0	0	0	30	0	0	0	0	0	0	0	0	0	0	0	0		0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	31	0	0	0	0	0	0	0	0	0	0	0	31
+170852	false	4	cf.researcher-teacher				0	0	5	0	0	0	0	0	0	0	0	0	16	0	0	0		0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	25	0	0	25
+170859	false	5	cf.student-postdoc				0	0	0	0	0	0	0	0	0	0	0	0	40	0	0	0		0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	77	0	0	77
+170897	false	5	cf.researcher-teacher			hybrid	0	1	0	0	0	0	0	50	0	0	0	0	0	0	0	0		0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1874	0	0	0	0	0	0	0	1874
+171205	false	4	cf.researcher-teacher				0	0	1	0	0	0	0	0	0	0	0	0	15	7	0	0		0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	23	5	0	28
+171249	false	5	cf.researcher-teacher				0	0	0	0	0	0	0	0	0	0	0	0	10	0	0	0		0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	19	0	0	19
+171405	false	5	cf.student-postdoc				0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0		0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+171406	false	5	cf.researcher-teacher				0	0	0	0	0	0	0	0	0	0	0	0	13	0	0	0		0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	25	0	0	25
+171407	false	5	cf.student-postdoc				0	0	0	0	0	0	0	0	0	0	0	0	18	0	0	0		0	0	0	0	0	0	0	0	0	0	0	8	0	0	0	0	0	0	0	0	0	0	0	0	0	35	0	0	35
+171409	false	4	cf.researcher-teacher				0	0	4	0	0	0	0	0	0	0	0	0	36	0	0	0		0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	55	0	0	55
+171411	false	5	cf.student-postdoc				0	0	0	0	0	0	0	0	2	0	0	0	0	0	0	0		0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	53	0	0	0	0	0	0	53
+171413	false	4	cf.researcher-teacher				0	0	1	0	0	0	0	0	0	0	0	0	20	1	0	0		0	0	1	26	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	31	1	0	32
+171415	false	4	cf.support				0	0	4	0	0	0	0	0	0	0	0	0	0	0	0	0		0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+171416	false	5	cf.researcher-teacher			gasoline	0	1	0	0	0	0	0	15	0	0	0	0	0	0	0	0		0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	687	0	0	0	0	0	0	0	687
+171426	false	4	cf.researcher-teacher			gasoline	0	1	5	0	0	0	0	1	0	0	0	0	30	5	0	0		0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	37	0	0	0	0	46	3	0	86
+171438	false	4	cf.student-postdoc				0	0	0	0	0	0	0	0	0	0	0	0	20	0	0	0		0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	31	0	0	31
+171573	false	5	cf.researcher-teacher	Je n'ai pas répondu aux questionnaire sur les repas!			0	0	3	0	0	0	0	0	0	0	0	0	6	0	0	0		0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	12	0	0	12
+171598	false	1	cf.researcher-teacher				0	0	0	0	0	0	0	0	0	0	0	0	100	0	0	0		0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	39	0	0	39
+171620	false	3	cf.student-postdoc				0	0	0	0	0	0	0	0	0	0	0	0	40	3	0	0		0	0	6	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	46	1	0	47
+172543	false	4	cf.researcher-teacher				0	0	0	0	0	0	0	0	0	0	0	0	15	0	0	0		0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	23	0	0	23
+172545	false	3	cf.researcher-teacher	j'opterais volontiers vers plus de repas végétarien si offre de qualité disponible.			0	0	2	6	0	0	0	0	0	0	0	0	8	0	0	0		0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	4	0	0	0	0	0	0	0	0	9	0	0	13
+172557	false	5	cf.support			gasoline	0	1	0	0	0	0	0	10	11	0	0	0	0	0	0	0		0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	458	291	0	0	0	0	0	0	749
+178385	false	5	cf.student-postdoc				0	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0		0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	26	0	0	0	0	0	0	26
+178393	false	5	cf.student-postdoc				0	0	2	0	0	0	0	0	0	0	0	0	0	0	0	0		0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+178400	false	5	cf.student-postdoc				0	0	0	0	0	0	0	0	0	0	0	0	27	0	0	0		0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	52	0	0	52
+178407	false	5	cf.student-postdoc				0	0	0	0	0	0	0	0	0	0	0	0	62	0	0	0		0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	119	0	0	119
+178429	false	5	cf.student-postdoc				0	0	2	0	0	0	0	0	0	0	0	0	0	0	0	0		0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+s215812	false	5	cf.researcher-teacher				0	0	2	0	0	0	0	0	0	0	0	0	30	0	0	0		0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	58	0	0	58
